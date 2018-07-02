@@ -30,7 +30,9 @@ module Jekyll
 
         draft = DraftFileInfo.new params
 
-        Compose::FileCreator.new(draft, params.force?, params.source).create!
+        file_creator = Compose::FileCreator.new(draft, params.force?, params.source)
+        file_creator.create!
+        Compose::FileEditor.open_editor(file_creator.file_path)
       end
 
       class DraftFileInfo < Compose::FileInfo
