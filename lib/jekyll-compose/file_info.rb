@@ -18,10 +18,12 @@ class Jekyll::Compose::FileInfo
     }.merge(custom_front_matter)
 
     defs = params.options["defaults"]
-    def_all = defs["all"]
-    def_layout = defs[meta["layout"]]
-    meta = def_layout.merge(meta) if def_layout
-    meta = def_all.merge(meta) if def_all
+    if defs
+      def_all = defs["all"]
+      def_layout = defs[meta["layout"]]
+      meta = def_layout.merge(meta) if def_layout
+      meta = def_all.merge(meta) if def_all
+    end
 
     c = meta.delete("content")
     YAML.dump(meta) + "---\n" + c
