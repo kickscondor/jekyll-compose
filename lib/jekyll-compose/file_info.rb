@@ -23,13 +23,13 @@ class Jekyll::Compose::FileInfo
     if defs
       def_layout = defs[meta["layout"]]
       if def_layout
-        a, b = def_layout.split(/^---\s*$/, 1)
+        a, b = def_layout.split(/^---\s*$/, 2)
         front_matter += a
         raw_content += b if b
       end
       def_all = defs["all"]
       if def_all
-        a, b = def_all.split(/^---\s*$/, 1)
+        a, b = def_all.split(/^---\s*$/, 2)
         front_matter += a
         raw_content += b if b
       end
