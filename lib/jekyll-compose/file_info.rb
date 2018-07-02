@@ -25,7 +25,7 @@ class Jekyll::Compose::FileInfo
       meta = def_all.merge(meta) if def_all
     end
 
-    c = meta.delete("content")
+    c = meta.delete("content").to_s
     YAML.dump(meta) + "---\n" + c
   end
 end
