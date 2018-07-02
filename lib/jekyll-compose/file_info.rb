@@ -18,14 +18,23 @@ class Jekyll::Compose::FileInfo
     }.merge(custom_front_matter)
 
     defs = Jekyll.configuration.dig("jekyll_compose", "defaults")
+    front_matter = YAML.dump(meta)
+    raw_content = ""
     if defs
-      def_all = defs["all"]
       def_layout = defs[meta["layout"]]
-      meta = def_layout.merge(meta) if def_layout
-      meta = def_all.merge(meta) if def_all
+      if def_layout
+        a, b = def_layout.split(/^---\s*$/, 1)
+        front_matter += a
+        raw_content += b
+      end
+      def_all = defs["all"]
+      if def_all
+        a, b = def_all.split(/^---\s*$/, 1)
+        front_matter += a
+        raw_content += b
+      end
     end
 
-    c = meta.delete("content").to_s
-    YAML.dump(meta) + "---\n" + c
+    front_matter + "---\n" + raw_content
   end
 end
