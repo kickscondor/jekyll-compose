@@ -17,7 +17,7 @@ class Jekyll::Compose::FileInfo
       "title"  => params.title,
     }.merge(custom_front_matter)
 
-    defs = params.options["defaults"]
+    defs = Jekyll.configuration.dig("jekyll_compose", "defaults")
     if defs
       def_all = defs["all"]
       def_layout = defs[meta["layout"]]
