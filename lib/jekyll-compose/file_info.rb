@@ -17,7 +17,7 @@ class Jekyll::Compose::FileInfo
       "title"  => params.title,
     }.merge(custom_front_matter)
 
-    defs = Jekyll.configuration.dig("jekyll_compose", "defaults")
+    defs = params.config.dig("jekyll_compose", "defaults")
     front_matter = YAML.dump(meta)
     raw_content = ""
     if defs
