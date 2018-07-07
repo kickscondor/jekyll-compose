@@ -6,11 +6,13 @@ class Jekyll::Compose::FileInfo
     @params = params
   end
 
+  def path
+    params.config.dig("jekyll_compose", "defaults", params.layout, "subdirectory") || ""
+  end
+
   def file_name
     name = Jekyll::Utils.slugify params.title
-    name = "#{name}.#{params.type}"
-    sub = params.config.dig("jekyll_compose", "defaults", params.layout, "subdirectory")
-    name = "#{sub}/#{name}" if sub
+    "#{name}.#{params.type}"
   end
 
   def content(custom_front_matter = {})

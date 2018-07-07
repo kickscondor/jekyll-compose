@@ -48,7 +48,7 @@ module Jekyll
         end
 
         def path
-          "_posts/#{file_name}"
+          "_posts/#{super}#{file_name}"
         end
 
         def file_name
