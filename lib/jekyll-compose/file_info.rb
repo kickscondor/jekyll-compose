@@ -8,7 +8,9 @@ class Jekyll::Compose::FileInfo
 
   def file_name
     name = Jekyll::Utils.slugify params.title
-    "#{name}.#{params.type}"
+    name = "#{name}.#{params.type}"
+    sub = params.config.dig("jekyll_compose", "defaults", params.layout, "subdirectory")
+    name = "#{sub}/#{name}" if sub
   end
 
   def content(custom_front_matter = {})
@@ -21,13 +23,13 @@ class Jekyll::Compose::FileInfo
     front_matter = YAML.dump(meta)
     raw_content = ""
     if defs
-      def_layout = defs[meta["layout"]]
+      def_layout = defs.dig(meta["layout"], "front_matter")
       if def_layout
         a, b = def_layout.split(/^---\s*$/, 2)
         front_matter += a
         raw_content += b if b
       end
-      def_all = defs["all"]
+      def_all = defs.dig("all", "front_matter")
       if def_all
         a, b = def_all.split(/^---\s*$/, 2)
         front_matter += a
