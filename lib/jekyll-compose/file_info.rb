@@ -7,7 +7,12 @@ class Jekyll::Compose::FileInfo
   end
 
   def path
-    params.config.dig("jekyll_compose", "defaults", params.layout, "subdirectory") || ""
+    sub = params.config.dig("jekyll_compose", "defaults", params.layout, "subdirectory")
+    if sub
+      "#{sub}/"
+    else
+      ""
+    end
   end
 
   def file_name
